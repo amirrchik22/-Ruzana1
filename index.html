@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Анкета NEURORUZ</title>
+
+  <!-- Telegram WebApp -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="nwApp" id="nwApp">
+    <header class="nwTop">
+      <div class="nwTop__title">
+        <div class="nwBadge">NEURORUZ</div>
+        <h1>Анкета анамнеза ребёнка</h1>
+        <p class="nwSub">Заполните внимательно. Можно вернуться назад и поправить ответы.</p>
+      </div>
+
+      <div class="nwMeta">
+        <div class="nwMeta__item">
+          <span class="nwMeta__k">ID (sid)</span>
+          <span class="nwMeta__v" id="nwSid">—</span>
+        </div>
+        <div class="nwMeta__item">
+          <span class="nwMeta__k">Шаг</span>
+          <span class="nwMeta__v" id="nwStepText">—</span>
+        </div>
+      </div>
+
+      <div class="nwProgress">
+        <div class="nwProgress__bar" id="nwProgressBar"></div>
+      </div>
+    </header>
+
+    <main class="nwMain">
+      <section class="nwCard nwCard--center" id="nwLoading">
+        <div class="nwSpinner"></div>
+        <div class="nwCenterText">
+          <div class="nwCenterTitle">Загрузка анкеты…</div>
+          <div class="nwCenterDesc">Проверяем ваш ID и готовим форму.</div>
+        </div>
+      </section>
+
+      <section class="nwCard nwCard--center nwHidden" id="nwError">
+        <div class="nwCenterText">
+          <div class="nwCenterTitle">Не удалось открыть анкету</div>
+          <div class="nwCenterDesc" id="nwErrorText">—</div>
+        </div>
+        <div class="nwActions">
+          <button class="nwBtn nwBtn--ghost" id="nwCloseBtn" type="button">Закрыть</button>
+        </div>
+      </section>
+
+      <section class="nwOverlay nwHidden" id="nwExistsOverlay">
+        <div class="nwOverlay__panel">
+          <div class="nwOverlay__title">Похоже, вы уже заполняли анкету</div>
+          <div class="nwOverlay__desc" id="nwExistsText">В таблице уже есть запись с вашим sid.</div>
+
+          <div class="nwOverlay__actions">
+            <button class="nwBtn nwBtn--primary" id="nwRefillBtn" type="button">Заполнить заново</button>
+            <button class="nwBtn nwBtn--ghost" id="nwCancelRefillBtn" type="button">Не нужно</button>
+          </div>
+
+          <div class="nwHint">
+            Если заполните заново — старая запись будет удалена и заменена новой.
+          </div>
+        </div>
+      </section>
+
+      <section class="nwCard nwHidden" id="nwFormCard">
+        <form id="nwForm" autocomplete="on" novalidate>
+          <div class="nwSectionHeader">
+            <h2 id="nwSectionTitle">—</h2>
+            <p id="nwSectionDesc" class="nwSectionDesc">—</p>
+          </div>
+
+          <div class="nwFields" id="nwFields"></div>
+
+          <div class="nwNav">
+            <button type="button" class="nwBtn nwBtn--ghost" id="nwPrevBtn">Назад</button>
+            <button type="button" class="nwBtn nwBtn--primary" id="nwNextBtn">Далее</button>
+            <button type="submit" class="nwBtn nwBtn--primary nwHidden" id="nwSubmitBtn">Отправить</button>
+          </div>
+
+          <div class="nwTiny" id="nwTinyNote">
+            Нажимая «Отправить», вы подтверждаете корректность введённых данных.
+          </div>
+        </form>
+      </section>
+
+      <section class="nwCard nwCard--center nwHidden" id="nwSuccess">
+        <div class="nwCenterText">
+          <div class="nwCenterTitle">Готово ✅</div>
+          <div class="nwCenterDesc">Анкета отправлена. Спасибо!</div>
+        </div>
+        <div class="nwActions">
+          <button class="nwBtn nwBtn--primary" id="nwDoneBtn" type="button">Закрыть</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="nwToast nwHidden" id="nwToast"></div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
