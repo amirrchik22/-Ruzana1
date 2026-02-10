@@ -25,6 +25,22 @@ FORM_SCHEMA.push({
   ]
 });
 
+// Делаем обязательными только действительно критичные поля:
+// - контакт для связи
+// - ключевые данные о ребенке
+const REQUIRED_FIELD_CODES = new Set([
+  "GEN_1", // Email
+  "GEN_5", // Дата рождения ребенка
+  "GEN_8", // Номер телефона
+  "GEN_9"  // Страна, город проживания
+]);
+
+FORM_SCHEMA.forEach(section => {
+  (section.fields || []).forEach(field => {
+    field.required = REQUIRED_FIELD_CODES.has(field.code);
+  });
+});
+
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
